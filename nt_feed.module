@@ -1,0 +1,160 @@
+<?php
+/**
+ * @file
+ * @copyright The Royal National Theatre
+ * @author John-Paul Drawneek
+ */
+
+require_once __DIR__ . '/includes/forms.inc';
+
+/**
+ * Implementation of hook_ctools_plugin_directory().
+ */
+function nt_feed_ctools_plugin_directory($module, $plugin) {
+  if ($module == 'ctools' && $plugin == 'export_ui') {
+    return 'export_ui';
+  }
+}
+
+/**
+ * Implements hook_menu().
+ *
+ * @return array
+ *   Menu config
+ */
+function nt_feed_menu() {
+  $items = array();
+//  $items['admin/structure/inspire-me-feed'] = array(
+//    'title' => 'Add',
+//    'access callback' => 'user_access',
+//    'access arguments' => array('administer site configuration'),
+//    'page callback' => 'drupal_get_form',
+//    'page arguments' => array('nt_feed_form'),
+//    'type' => MENU_LOCAL_TASK,
+//    'weight' => 3,
+//    'file' => 'nt_feed.admin.php',
+//  );
+  $items['admin/structure/inspire-me-feed/settings'] = array(
+    'title' => 'Settings',
+    'access callback' => 'user_access',
+    'access arguments' => array('administer site configuration'),
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('nt_feed_ui_settings'),
+    'type' => MENU_LOCAL_TASK,
+    'weight' => 3,
+    'file' => 'nt_feed.admin.php',
+  );
+  $items['ahah/inspire-me-feed/%ctools_js/image/%/%/%'] = array(
+    'title' => 'Cover Image',
+    'access arguments' => array('administer site configuration'),
+    'page callback' => 'nt_feed_form_page',
+    'page arguments' => array('nt_feed_image_form', 2, 4, 5, 6),
+    'type' => MENU_CALLBACK,
+    'weight' => 3,
+    'file' => 'includes/nt_feed.ajax_for.inc',
+  );
+  $items['ahah/inspire-me-feed/%ctools_js/title/%/%/%'] = array(
+    'title' => 'Override Title',
+    'access arguments' => array('administer site configuration'),
+    'page callback' => 'nt_feed_form_page',
+    'page arguments' => array('nt_feed_title_form', 2, 4, 5, 6),
+    'type' => MENU_CALLBACK,
+    'weight' => 3,
+    'file' => 'includes/nt_feed.ajax_for.inc',
+  );
+  $items['ahah/inspire-me-feed/%ctools_js/schedule/%/%/%'] = array(
+    'title' => 'Schedule',
+    'access arguments' => array('administer site configuration'),
+    'page callback' => 'nt_feed_form_page',
+    'page arguments' => array('nt_feed_schedule_form', 2, 4, 5, 6),
+    'type' => MENU_CALLBACK,
+    'weight' => 3,
+    'file' => 'includes/nt_feed.ajax_for.inc',
+  );
+  return $items;
+}
+/**
+ * Implements hook_theme().
+ *
+ * @param string $existing
+ *   An array of existing implementations that may be used for override
+ *   purposes.
+ * @param string $type
+ *   Whether a theme, module, etc. is being processed.
+ * @param string $theme
+ *   The actual name of theme, module, etc. that is being being processed.
+ * @param string $path
+ *   The directory path of the theme or module, so that it doesn't need to be
+ *   looked up.
+ *
+ * @return array
+ *   An associative array of theme hook information.
+ */
+function nt_feed_theme($existing, $type, $theme, $path) {
+  return array(
+    'nt_feed_form' => array(
+      'render element' => 'form',
+      'path' => drupal_get_path('module', 'nt_feed') .'/templates',
+      'template' => 'nt-feed-form',
+    ),
+    'nt_feed_form_panel' => array(
+      'render element' => 'form',
+      'path' => drupal_get_path('module', 'nt_feed') .'/templates',
+      'template' => 'nt-feed-form-panel',
+    ),
+    'nt_feed_form_plane' => array(
+      'render element' => 'form',
+      'path' => drupal_get_path('module', 'nt_feed') .'/templates',
+      'template' => 'nt-feed-form-plane',
+    ),
+    'nt_feed_form_list' => array(
+      'render element' => 'form',
+      'path' => drupal_get_path('module', 'nt_feed') .'/templates',
+      'template' => 'nt-feed-form-list',
+    ),
+    'nt_feed_list_wrapper' => array(
+      'render element' => 'form',
+      'path' => drupal_get_path('module', 'nt_feed') .'/templates',
+      'template' => 'nt-feed-list-wrapper',
+    ),
+    'nt_feed_list_item_wrapper' => array(
+      'render element' => 'form',
+      'path' => drupal_get_path('module', 'nt_feed') .'/templates',
+      'template' => 'nt-feed-list-item-wrapper',
+    ),
+    'nt_feed_list_item' => array(
+      'render element' => 'form',
+      'path' => drupal_get_path('module', 'nt_feed') .'/templates',
+      'template' => 'nt-feed-list-item',
+    ),
+    'nt_feed_item_row' => array(
+      'render element' => 'form',
+      'path' => drupal_get_path('module', 'nt_feed') .'/templates',
+      'template' => 'nt-feed-item-row',
+    ),
+    'nt_feed_item_table' => array(
+      'render element' => 'form',
+      'path' => drupal_get_path('module', 'nt_feed') .'/templates',
+      'template' => 'nt-feed-item-table',
+    ),
+  );
+}
+
+function nt_feed_load($data) {
+  
+}
+
+function nt_feed_delete($data) {
+  
+}
+
+function nt_feed_save($data) {
+//  drupal_write_record('nt_feed', $item['data']);
+}
+
+function nt_feed_update($data, $name) {
+//  die('Wront<pre>' . print_r($data, TRUE) . '</pre>');
+//  foreach ($data as $item) {
+//    drupal_write_record('nt_feed', $item['data'], array($name));
+//  }
+}

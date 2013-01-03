@@ -1,0 +1,12 @@
+name = nt_feed_twitter
+description = This is required and needs replacing.
+core = 7.x
+; stylesheets[all][] =
+; scripts[] =
+files[] = twitter.inc
+; dependencies[] =
+; package =
+php = 5.2
+version = 7.x-1.0 
+; configure =
+

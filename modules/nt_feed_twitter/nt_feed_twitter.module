@@ -1,0 +1,95 @@
+<?php
+/**
+ * @file
+ * @copyright The Royal National Theatre
+ * @author John-Paul Drawneek
+ */
+
+/**
+ * Implements hook_menu().
+ *
+ * @return array
+ *   Menu config
+ */
+function nt_feed_twitter_menu() {
+  return array();
+}
+/**
+ * Implements hook_theme().
+ *
+ * @param string $existing
+ *   An array of existing implementations that may be used for override
+ *   purposes.
+ * @param string $type
+ *   Whether a theme, module, etc. is being processed.
+ * @param string $theme
+ *   The actual name of theme, module, etc. that is being being processed.
+ * @param string $path
+ *   The directory path of the theme or module, so that it doesn't need to be
+ *   looked up.
+ *
+ * @return array
+ *   An associative array of theme hook information.
+ */
+function nt_feed_twitter_theme($existing, $type, $theme, $path) {
+  return array();
+}
+
+function nt_feed_twitter_nt_feed_register_settings_form_alter(&$form, &$form_state) {
+  if (!(isset($form_state['item']->config['NtFeedTwitter']))) {
+    $form_state['item']->config['NtFeedTwitter'] = array(
+      array(
+        'screen_name' => 'ntlive',
+        'filter'      => ''
+      ),
+    );
+  }
+  $form['NtFeedTwitter'] = array(
+    '#type'        => 'fieldset',
+    '#title'       => t('Twitter'),
+    '#collapsible' => TRUE,
+    '#tree'        => TRUE,
+  );
+  foreach ($form_state['item']->config['NtFeedTwitter'] as $config) {
+    $config += array(
+      'screen_name' => '',
+      'filter'      => '',
+    );
+    $form['NtFeedTwitter'][] = array(
+      'screen_name'  => array(
+        '#type'          => 'textfield',
+        '#title'         => t('Screen Name'),
+        '#default_value' => $config['screen_name'],
+      ),
+      'filter'  => array(
+        '#type'          => 'textfield',
+        '#title'         => t('Hash tag'),
+        '#default_value' => $config['filter'],
+      ),
+    );
+  }
+  $form['NtFeedTwitter']['add'] = array(
+    '#type' => 'submit',
+    '#value' => t('More'),
+    '#weight' => count($form['NtFeedTwitter']),
+    '#submit' => array('nt_feed_twitter_add_submit'),
+    '#limit_validation_errors' => array(),
+  );
+//  print '<pre>' . print_r($form, TRUE) . '</pre>';
+}
+
+function nt_feed_twitter_add_submit(&$form, &$form_state) {
+  $form_state['item']->config['NtFeedTwitter'][] = array(
+    'screen_name' => 'ntlive',
+    'filter'      => '',
+  );
+  $form_state['rebuild'] = TRUE;
+}
+
+function nt_feed_twitter_nt_feed_register_settings_defaults_alter(&$settings) {
+  $settings['NtFeedTwitter'] = array();
+  $settings['NtFeedTwitter'][0] = array(
+    'screen_name' => 'ntlive',
+    'filter'      => ''
+  );
+}

@@ -1,0 +1,56 @@
+<?php
+/**
+ * @file
+ * @copyright The Royal National Theatre
+ * @author John-Paul Drawneek
+ */
+
+/**
+ * Implements hook_schema().
+ *
+ * @return array
+ *   A schema definition structure array.
+ */
+function nt_feed_twitter_schema() {
+  return array();
+}
+/**
+ * Implements hook_field_schema().
+ *
+ * @param array $field
+ *   A field structure.
+ */
+function nt_feed_twitter_field_schema($field) {
+
+}
+/**
+ * Implements hook_install().
+ */
+function nt_feed_twitter_install() {
+
+}
+/**
+ * Implements hook_uninstall().
+ */
+function nt_feed_twitter_uninstall() {
+
+}
+/**
+ * Implements hook_enable().
+ */
+function nt_feed_twitter_enable() {
+  $mod_list = variable_get('nt_feed_data_types', array());
+  $mod_list['NtFeedTwitter'] = array(
+    'name' => 'Twitter',
+    'module' => 'nt_feed_twitter',
+  );
+  variable_set('nt_feed_data_types', $mod_list);
+}
+/**
+ * Implements hook_enable().
+ */
+function nt_feed_twitter_disable() {
+  $mod_list = variable_get('nt_feed_data_types', array());
+  unset($mod_list['NtFeedTwitter']);
+  variable_set('nt_feed_data_types', $mod_list);
+}

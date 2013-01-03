@@ -1,0 +1,16 @@
+name = "NT Feed"
+description = "NT Inspire me feed cms backend module."
+core = 7.x
+; stylesheets[all][] =
+; scripts[] =
+files[] = includes/forms.inc
+files[] = includes/feed.inc
+files[] = includes/transport.inc
+files[] = includes/list.inc
+files[] = includes/data.inc
+dependencies[] = ctools
+package = "National Theatre"
+php = 5.3
+version = 7.x-1.0 
+; configure =
+

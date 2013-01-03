@@ -1,0 +1,66 @@
+/* 
+    Document   : nt_feed
+    Created on : 29-Nov-2012, 11:39:06
+    Author     : John-Paul Drawneek <jdrawneek@nationaltheatre.org.uk>
+    Description:
+        Purpose of the stylesheet follows.
+*/
+#edit-schedular {
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 0px;
+}
+
+#edit-schedular div.fieldset-wrapper {
+    padding-left: 5px;
+    padding-right: 5px;
+    margin-top: 0px;
+}
+
+#nt-feed-form-panel > div {
+    float: left;
+    min-width: 110px;
+    width: 49%;
+    margin-right: 1%;
+}
+#nt-feed-form-panel #edit-schedular-plane {
+    width: 59%;
+}
+#nt-feed-form-panel #edit-schedular-list {
+    width: 39%;
+}
+
+#nt-feed-form-panel > h2 {
+    margin-top: 0px;
+}
+
+#nt-feed-form-panel #nt-feed-list {
+    margin-right: 0;
+}
+
+.nt-feed-placeholder {
+    height: 100px;
+    background-color: #ff99cc;
+}
+
+#nt-feed-tabs .vertical-tabs {
+    margin-left: 100px;
+}
+#nt-feed-tabs .vertical-tabs .vertical-tabs-list {
+    width: 100px;
+    margin-left: -100px;
+}
+
+#nt-feed-list-wrapper .nt-feed-list-items-wrapper h3 {
+    background-color: #0099cc;
+}
+
+.nt-feed-list-item {
+    border: 2px solid #6699ff;
+    padding: 2px;
+}
+
+#nt-feed-list-wrapper .nt-feed-list-items-wrapper .nt-feed-list-item-wrapper {
+    overflow: scroll;
+    height: 350px;
+}

@@ -1,0 +1,131 @@
+<?php
+/**
+ * @file
+ * @copyright The Royal National Theatre
+ * @author John-Paul Drawneek
+ */
+
+/**
+ * Implements hook_schema().
+ *
+ * @return array
+ *   A schema definition structure array.
+ */
+function nt_feed_schema() {
+  return array(
+    'nt_feed' => array(
+      'description' => 'Storage for feed configuration.',
+      'export' => array(
+        'key' => 'name',
+        'identifier' => 'nt_feed',
+        'default hook' => 'nt_feed_default_feed',  // Function hook name.
+        'status' => 'nt_feed_status',
+        'api' => array(
+          'owner' => 'nt_feed',
+          'api' => 'nt_feed',  // Base name for api include files.
+          'minimum_version' => 3,
+          'current_version' => 3,
+        ),
+        'export callback' => 'nt_feed_export',
+      ),
+      'fields' => array(
+        'name' => array(
+          'description' => 'The primary identifier for a context.',
+          'type' => 'varchar',
+          'length' => 255,
+          'not null' => TRUE,
+          'default' => '',
+        ),
+        'items' => array(
+          'description' => 'Serialized storage of all the items in the feed.',
+          'type' => 'text',
+          'size' => 'medium',
+          'serialize' => TRUE,
+        ),
+        'config' => array(
+          'description' => 'Serialized storage of all the configuration for the feed.',
+          'type' => 'text',
+          'size' => 'medium',
+          'serialize' => TRUE,
+        ),
+        'description' => array(
+          'description' => 'Description for this feed.',
+          'type' => 'varchar',
+          'length' => 255,
+          'not null' => TRUE,
+          'default' => '',
+        ),
+        'tag' => array(
+          'description' => 'Tag for this feed.',
+          'type' => 'varchar',
+          'length' => 255,
+          'not null' => TRUE,
+          'default' => '',
+        ),
+        'revision' => array(
+          'description' => 'Revision id, incase this gets implemented.',
+          'type' => 'int',
+          'unsigned' => TRUE,
+          'not null' => FALSE,
+          'default' => '0',
+        ),
+        'created' => array(
+          'description' => 'Timestamp for when this was created.',
+          'type' => 'int',
+          'unsigned' => TRUE,
+          'not null' => FALSE,
+          'default' => '0',
+        ),
+        'updated' => array(
+          'description' => 'Timestamp for when this was updated.',
+          'type' => 'int',
+          'unsigned' => TRUE,
+          'not null' => FALSE,
+          'default' => '0',
+        ),
+      ),
+      'primary key' => array(
+        'name',
+        'revision',
+      ),
+      'indexes' => array(
+        'dates' => array('created', 'updated'),
+        'tags'  => array('tag'),
+      ),
+    ),
+//    'nt_feed_revision' => array(
+//      'description' => 'Storage for feed configuration revisions.',
+//      'fields' => array(
+//        
+//      ),
+//      'primary key' => array(''),
+//    ),
+  );
+}
+/**
+ * Implements hook_field_schema().
+ *
+ * @param array $field
+ *   A field structure.
+ */
+function nt_feed_field_schema($field) {
+
+}
+/**
+ * Implements hook_install().
+ */
+function nt_feed_install() {
+  $types = variable_get('nt_feed_data_types', TRUE);
+  if ($types === TRUE) {
+    variable_set('nt_feed_data_types', array());
+  }
+}
+/**
+ * Implements hook_uninstall().
+ */
+function nt_feed_uninstall() {
+  $types = variable_get('nt_feed_data_types', array());
+  if (empty($types)) {
+    variable_del('nt_feed_data_types');
+  }
+}
