@@ -19,17 +19,19 @@ function nt_feed_form_ctools_export_ui_edit_item_form_alter(&$form, &$form_state
   nt_feed_base_form_alter($form, $form_state, $form_id);
 }
 function nt_feed_base_form_alter(&$form, &$form_state, $form_id) {
-  $data_list = $form['#data_list'];
-  $form['schedular']['plane'] = array(
-    '#type' => 'container',
-    '#tree' => TRUE,
-    '#theme' => 'nt_feed_form_plane',
-    'table' => array(
+  if (isset($form['#data_list'])) {
+    $data_list = $form['#data_list'];
+    $form['schedular']['plane'] = array(
+      '#type' => 'container',
       '#tree' => TRUE,
-      '#theme' => 'nt_feed_item_table',
-      'rows' => $data_list->renderItems($form['#build_id']),
-    ),
-  );
+      '#theme' => 'nt_feed_form_plane',
+      'table' => array(
+        '#tree' => TRUE,
+        '#theme' => 'nt_feed_item_table',
+        'rows' => $data_list->renderItems($form['#build_id']),
+      ),
+    );
+  }
 }
 
 function nt_feed_form(&$form, &$form_state) {
